@@ -1,0 +1,116 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.2.0" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.4" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.4" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="2.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
+    <PackageReference Include="MySql.Data.Entity" Version="6.10.6" />
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="6.10.6" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Content Remove="ClientApp\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\components\AccessForm.tsx" />
+    <None Remove="ClientApp\components\calendar\Activity.tsx" />
+    <None Remove="ClientApp\components\calendar\DayHeader.tsx" />
+    <None Remove="ClientApp\components\calendar\HourRows.tsx" />
+    <None Remove="ClientApp\components\calendar\Schedule.tsx" />
+    <None Remove="ClientApp\components\ErrorMessages.tsx" />
+    <None Remove="ClientApp\components\logic\activity.ts" />
+    <None Remove="ClientApp\components\logic\persistState.ts" />
+    <None Remove="ClientApp\components\logic\register.ts" />
+    <None Remove="ClientApp\components\Login.tsx" />
+    <None Remove="ClientApp\components\LoginForm.tsx" />
+    <None Remove="ClientApp\components\Todo.tsx" />
+    <None Remove="ClientApp\components\TodoForm.tsx" />
+    <None Remove="ClientApp\components\TodoList.tsx" />
+    <None Remove="ClientApp\config.ts" />
+    <None Remove="ClientApp\store\calendar\Calendar.ts" />
+    <None Remove="ClientApp\store\Errors.ts" />
+    <None Remove="ClientApp\store\index.ts" />
+    <None Remove="ClientApp\store\Login.ts" />
+    <None Remove="ClientApp\store\LoginForm.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\components\calendar\Activity.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\calendar\Day.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\calendar\ActivityInfo.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\calendar\CalendarApp.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\calendar\Calendar.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\calendar\DayHeader.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\calendar\Week.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\calendar\HourRows.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\calendar\Schedule.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\logic\activity.ts" />
+    <TypeScriptCompile Include="ClientApp\components\logic\persistState.ts" />
+    <TypeScriptCompile Include="ClientApp\components\login\AccessForm.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\login\ErrorMessages.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\logic\register.ts" />
+    <TypeScriptCompile Include="ClientApp\components\login\Login.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\login\LoginForm.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\TodoForm.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\TodoList.tsx" />
+    <TypeScriptCompile Include="ClientApp\config.ts" />
+    <TypeScriptCompile Include="ClientApp\store\calendar\Calendar.ts" />
+    <TypeScriptCompile Include="ClientApp\store\login\LoginError.ts" />
+    <TypeScriptCompile Include="ClientApp\store\index.ts" />
+    <TypeScriptCompile Include="ClientApp\store\login\StoreLogin.ts" />
+    <TypeScriptCompile Include="ClientApp\store\login\LoginForm.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\actions\" />
+    <Folder Include="ClientApp\utils\" />
+  </ItemGroup>
+
+  <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+
+    <!-- In development, the dist files won't exist on the first run or when cloning to
+         a different machine, so rebuild them if not already present. -->
+    <Message Importance="high" Text="Performing first-run Webpack build..." />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js" />
+    <Exec Command="node node_modules/webpack/bin/webpack.js" />
+  </Target>
+
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+    <Exec Command="npm install" />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod" />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --env.prod" />
+
+    <!-- Include the newly-built files in the publish output -->
+    <ItemGroup>
+      <DistFiles Include="wwwroot\dist\**; ClientApp\dist\**" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+
+</Project>

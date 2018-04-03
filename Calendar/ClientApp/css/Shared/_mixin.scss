@@ -1,0 +1,47 @@
+﻿
+
+
+@mixin center($position,$horizontal: true, $vertical: true) {
+    position: $position;
+
+    @if ($horizontal and $vertical) {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    @else if ($horizontal) {
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+    @else if ($vertical) {
+        top: 50%;
+        transform: translate(0, -50%);
+    }
+}
+
+@mixin line-height($height) {
+    line-height: calc($height - 400);
+}
+
+
+@mixin Gscale($prop, $min, $max) {
+    $v1: $max - $min;
+    $v2: 1280 - 400;
+    $fraction: $v1 / $v2;
+    $percent: 400 * $fraction;
+
+
+    $vw: $fraction * 100 +vw;
+    $px: $min - $percent +px;
+
+
+    #{$prop}: calc(#{$vw} + #{$px});
+
+    @media screen and (max-width: 400px) {
+        #{$prop}: $min+px;
+    }
+
+    @media screen and (min-width: 1280px) {
+        #{$prop}: $max+px;
+    }
+}

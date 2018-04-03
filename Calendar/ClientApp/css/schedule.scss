@@ -1,0 +1,350 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+* {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently*/
+}
+
+.body-content {
+    display: flex;
+}
+
+.hide {
+    opacity: 0;
+    background: hsla(0, 0%, 0%, 0.5);
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+}
+
+.index-menu {
+    background: #444545;
+    flex: 1 1 auto;
+    max-width: 200px;
+    padding: 10px;
+}
+
+.index-content {
+    flex: 6 6 auto;
+
+    .icon-logout {
+        color: white;
+        font-size: 17px;
+        top: 19px;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .logout-button {
+        background: #97c2f2;
+        color: white;
+        width: 80px;
+        height: 60px;
+        text-align: left;
+        font-size: 16px;
+        padding-right: 5px;
+        font-family: roboto;
+        line-height: 57px;
+        position: absolute;
+        left: -60px;
+        top: 0px;
+        cursor: pointer;
+        transition: left .35s;
+    }
+
+    .logout-button:hover {
+        left: 0px;
+        text-align: right;
+    }
+
+    .index-header {
+        height: 60px;
+        font-size: 35px;
+        font-family: raleway;
+        text-align: center;
+        line-height: 61px;
+    }
+}
+
+.activity-description {
+    top: 0;
+    position: absolute;
+    padding: 10px;
+    height: 250px;
+    width: 400px;
+    background: white;
+    border-bottom: 1px solid #e0e0e0;
+    outline: none;
+    z-index: 4;
+    border-radius: 4px;
+
+    &-header {
+
+        &-exit {
+            cursor: pointer;
+            float: right;
+        }
+
+        &-input {
+            margin-top: 20px;
+            height: 50px;
+            margin-left: 50px;
+            width: 70%;
+            border: none;
+            border-radius: 4px;
+            border-bottom: 1px solid #8ab8f6;
+            outline: none;
+        }
+    }
+
+    &-colors {
+        margin-top: 10px;
+        margin-left: 50px;
+        height: 35px;
+        display: flex;
+
+        & > div {
+            background: black;
+            border-radius: 2px;
+            margin: 3px;
+            width: 29px;
+            cursor: pointer;
+        }
+
+        .color-red {
+            background: hsl(0, 36%, 50%);
+        }
+
+        .color-orange {
+            background: hsl(28, 36%, 50%);
+        }
+
+        .color-yellow {
+            background: hsl(53, 64%, 68%)
+        }
+
+        .color-green {
+            background: hsl(118, 64%, 68%)
+        }
+
+        .color-teal {
+            background: hsl(164, 39%, 63%)
+        }
+
+        .color-blue {
+            background: hsl(231, 54%, 66%);
+        }
+
+        .color-purple {
+            background: hsl(272, 45%, 57%);
+        }
+
+        .color-pink {
+            background: hsl(307, 30%, 57%)
+        }
+    }
+
+    &-footer {
+
+        &-save {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: #8ab8f6;
+            color: white;
+            padding: 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        &-delete {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: #ad5252;
+            color: white;
+            padding: 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    }
+}
+
+.schedule {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 60px);
+    overflow: hidden;
+
+    .arrow-week {
+        position: absolute;
+        background: none;
+        border: none;
+        font-size: 52px;
+        outline: none;
+    }
+
+    .left {
+        float: left;
+    }
+
+    .right {
+        float: right;
+        left: 56px;
+    }
+
+    .schedule__header {
+        @include Gscale(padding-left, 64, 80);
+        padding-right: 8px;
+        display: flex;
+        flex: none;
+
+
+
+        .schedule__header--days {
+            height: 80px;
+            flex: 1 1 auto;
+            display: flex;
+
+            .schedule__header--day {
+                flex: 1 1 0%;
+                font-family: Roboto;
+                color: white;
+                font-size: 21px;
+                font-weight: 400;
+                box-sizing: border-box;
+                border-right: $schedule-border;
+                padding: 5px;
+                background: #97c2f2;
+            }
+        }
+    }
+
+
+
+    .schedule__body {
+        position: relative;
+        display: flex;
+        flex: 1 1 auto;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        text-align: center;
+
+        &::-webkit-scrollbar {
+            border: none;
+            width: 8px;
+            box-shadow: none;
+            background: white;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #97c2f2;
+        }
+
+        .schedule__body--time {
+            flex: 0 0 auto;
+            display: flex;
+
+            .schedule__body--hour-scroll {
+            }
+
+            .schedule__body--hour {
+                display: inline-block;
+                position: relative;
+                box-sizing: border-box;
+                border-right: $schedule-border;
+                @include Gscale(width, 64, 80);
+
+                .schedule__body--hour-item {
+                    height: 50px;
+                    text-align: center;
+                    padding: 5px;
+                    padding-top: 25px;
+                    line-height: 50px;
+
+                    .schedule__body--hour-text {
+                        display: block;
+                    }
+                }
+            }
+        }
+
+        .schedule__body--activity-scroll {
+            flex: 1 1 auto;
+            display: flex;
+            height: 100%;
+            max-height: 1200px;
+
+
+            .schedule__body--activity-rows {
+
+                &-item {
+                    height: 50px;
+
+                    &:after {
+                        content: "";
+                        border-bottom: $schedule-border;
+                        position: absolute;
+                        width: 100%;
+                        margin-top: -1px;
+                        z-index: 2;
+                    }
+                }
+            }
+        }
+
+        .schedule__body--activity-days {
+            display: flex;
+            flex: 1 1 auto;
+            position: relative;
+
+
+            .schedule__body--activity-day-container {
+                flex: 1 1 auto;
+                border-right: $schedule-border;
+                position: relative;
+
+                .schedule__body--activity-day {
+                    position: relative;
+                    height: 100%;
+                    width: 100%;
+
+                    .activity {
+                        position: absolute;
+                        width: 100%;
+                        padding: 6px;
+                        border-radius: 3px;
+                        cursor: pointer;
+                        z-index: 3;
+
+                        &-title {
+                            float: left;
+                            font-family: Roboto;
+                            color: white;
+                            font-size: 16px;
+                        }
+
+                        &-duration {
+                            float: left;
+                            color: #cccccc;
+                            clear: both;
+                        }
+
+                        &-footer {
+                            position: absolute;
+                            bottom: 0px;
+                            left: 5px;
+                            width: 92%;
+                            height: 25px;
+                            cursor: row-resize;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

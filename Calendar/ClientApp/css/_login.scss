@@ -1,0 +1,189 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,800');
+
+* {
+    font-family: Roboto;
+}
+.absolute{
+    @include center(absolute, false, true);
+}
+.access__menu {
+    box-shadow: 0px 4px 10px -4px #000000;
+    background: #8da8ba;
+    @include center(absolute, true, true);
+    @include Gscale(width, 200, 800);
+    @include Gscale(height, 150, 500);
+    top: 50vh;
+}
+
+.login {
+    padding: 40px;
+    background: white;
+    height: 100%;
+    float: right;
+    width: 50%;
+
+    .login__header {
+        color: $raspberry;
+    }
+
+    .login__form {
+        padding: inherit;
+        @include center(absolute, false, true);
+        left: 50%;
+        width: 50%;
+    }
+
+    .login__button {
+        position: relative;
+        height: 50px;
+        border-radius: 5px;
+        width: 100%;
+        padding: 10px;
+        background: $raspberry;
+        font-weight: 800;
+        font-size: 20px;
+        color: white;
+        outline: none;
+        margin-top: 67%;
+        border: none;
+    }
+
+    .login__button-active {
+        background: white;
+        color: $raspberry;
+    }
+}
+
+
+
+.login__name, .login__password {
+    outline: none;
+    display: -webkit-box;
+    padding: 10px;
+    margin-bottom: 10px;
+    height: 60px;
+    width: 100%;
+    border-radius: 5px;
+    border: solid rgba(209, 209, 209, 0.76);
+    border-width: 0px 1px 3px 2px;
+    transition: margin-left .2s ease-in, margin-bottom .2s ease-in;
+}
+
+
+input::placeholder {
+    color: hsl(0,0,75%);
+    font-family: Roboto;
+    font-weight:600;
+}
+.form{
+    height:100%;
+}
+.input--valid {
+    background: rgb(162, 226, 151) !important;
+    border-color: rgb(120, 198, 124) !important;
+}
+.input--invalid {
+    background: rgb(218, 135, 129) !important;
+    border-color: rgb(198, 120, 120) !important;
+}
+
+
+.register {
+    padding: 40px;
+    background: $raspberry;
+    height: 100%;
+    float: left;
+    width: 50%;
+
+    .register__header {
+        color: white;
+    }
+
+    .register__button {
+        float: left;
+        margin-top: 68%;
+        height: 50px;
+        width: 100%;
+        padding: 10px;
+        background: white;
+        top: 31%;
+        font-weight: 800;
+        font-size: 20px;
+        color: $raspberry;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .register__button-active {
+        background: $raspberry;
+        color: white;
+    }
+}
+
+
+.login__password-repeat {
+    position: absolute;
+    margin-left: -100%;
+    margin-top: -70px;
+    padding: 10px;
+    height: 60px;
+    width: calc(100% - 80px);
+    border-radius: 5px;
+    border: solid rgba(209, 209, 209, 0.76);
+    border-width: 0px 1px 3px 2px;
+    outline: none;
+    z-index: -1;
+    transition: margin-top .2s ease-in;
+    opacity: 0;
+}
+
+.button-active {
+    background: $raspberry;
+}
+.button-inactive {
+    background: none;
+    padding: 0;
+    border: 2px solid $grey;
+    color: $raspberry;
+}
+.register__input {
+    margin-left: -125%;
+}
+.password-up {
+    margin-bottom: 152px;
+}
+.password-repeat-up {
+    opacity:1;
+    margin-top: -142px;
+}
+
+.invalid-container {
+    position: absolute;
+    float: right;
+    top: 24%;
+    width: 144px;
+    right: 93%;
+}
+.invalid-label {
+    display: flex;
+    flex-direction: row;
+    float: right;
+}
+.invalid {
+    background: white;
+    color: $raspberry;
+    margin-bottom: 37px;
+    height: 35px;
+    padding: 2px 4px 1px 15px;
+    font-weight: 600;
+    border-radius: 5px 0px 0px 5px;
+    line-height: 35px;
+    width: max-content;
+}
+.triangle {
+    margin-top: 0%;
+    height: 0px;
+    border: 17px solid transparent;
+    border-left: 19px solid white;
+}
